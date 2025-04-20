@@ -2,7 +2,7 @@ if (window.hasRun) throw "Already run";
 window.hasRun = true;
 
 var linktoolbar = document.createElement('div');
-linktoolbar.setAttribute('style', 'position: fixed; border: thin black solid');
+linktoolbar.setAttribute('style', 'position: fixed; border: thin black solid; right: 0; z-index: 4000');
 document.body.insertBefore(linktoolbar, document.body.firstChild);
 
 try {
@@ -15,20 +15,20 @@ try {
 }
 
 try {
-    var startlink = document.querySelector('link[rel=start]').href;
+    var toplink = document.querySelector('link[rel=top]').href;
 } catch (e) {
-    var startlink = '/';
+    var toplink = '/';
 } finally {
     /* TODO: Localization */
-    var tnode = document.createTextNode('Start');
+    var tnode = document.createTextNode('Top');
     var elem = document.createElement('a');
-    elem.setAttribute('href', startlink);
+    elem.setAttribute('href', toplink);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 }
 
 try {
-    var uplink = document.querySelector('link[rel=top]').href;
+    var uplink = document.querySelector('link[rel=up]').href;
 } catch (e) {
     var uplink = '../';
 } finally {
@@ -38,6 +38,17 @@ try {
     elem.setAttribute('href', uplink);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
+}
+
+try {
+    var startlink = document.querySelector('link[rel=start]').href;
+    /* TODO: Localization */
+    var tnode = document.createTextNode('Start');
+    var elem = document.createElement('a');
+    elem.setAttribute('href', startlink);
+    elem.appendChild(tnode);
+    linktoolbar.appendChild(elem);
+} catch (e) {
 }
 
 try {
@@ -52,7 +63,7 @@ try {
 }
 
 try {
-    var prevlink = document.querySelector('link[rel=prev]').href;
+    var prevlink = document.querySelector('link[rel=prev],link[rel=previous]').href;
     /* TODO: Localization */
     var tnode = document.createTextNode('Prev');
     var elem = document.createElement('a');
@@ -124,7 +135,7 @@ var tstyles = document.querySelectorAll('link[rel~=stylesheet][title]');
 if (tstyles.length > 0) {
     var styles_combo = document.createElement('select');
     // TODO: Actually change the stylesheet
-    //styles_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value");
+    styles_combo.setAttribute('onchange', "document.querySelector('link[rel~=stylesheet]:not([rel~=alternate])').href = this.options[this.selectedIndex].value");
     var styles_group = document.createElement('optgroup');
     styles_group.setAttribute('label', 'Available Stylesheets');
     styles_combo.appendChild(styles_group);
@@ -134,8 +145,9 @@ if (tstyles.length > 0) {
     for (var style of tstyles) {
         var tnode = document.createTextNode(style.title);
         var elem  = document.createElement('option');
-        if (style.rel.indexOf('alternate') == -1)
+        if (style.rel.indexOf('alternate') == -1) {
             elem.setAttribute('selected', 'selected');
+        }
         elem.setAttribute('value', style.href);
         elem.appendChild(tnode);
         styles_combo.appendChild(elem);
@@ -143,7 +155,7 @@ if (tstyles.length > 0) {
 
 // TODO: Other links
 var notsel = '';
-var rels=['stylesheet', 'alternate', 'icon', 'start', 'up', 'first', 'prev', 'next', 'last', 'bookmark'];
+var rels=['stylesheet', 'alternate', 'icon', 'start', 'up', 'first', 'prev', 'previous', 'next', 'last', 'bookmark'];
 for (var rel of rels) {
     notsel += ':not([rel~=' + rel + '])';
 }
