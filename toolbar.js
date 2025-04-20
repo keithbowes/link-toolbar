@@ -19,7 +19,6 @@ try {
 } catch (e) {
     var toplink = '/';
 } finally {
-    /* TODO: Localization */
     var tnode = document.createTextNode('Top');
     var elem = document.createElement('a');
     elem.setAttribute('href', toplink);
@@ -32,7 +31,6 @@ try {
 } catch (e) {
     var uplink = '../';
 } finally {
-    /* TODO: Localization */
     var tnode = document.createTextNode('Up');
     var elem = document.createElement('a');
     elem.setAttribute('href', uplink);
@@ -42,7 +40,6 @@ try {
 
 try {
     var startlink = document.querySelector('link[rel=start]').href;
-    /* TODO: Localization */
     var tnode = document.createTextNode('Start');
     var elem = document.createElement('a');
     elem.setAttribute('href', startlink);
@@ -53,7 +50,6 @@ try {
 
 try {
     var firstlink = document.querySelector('link[rel=first]').href;
-    /* TODO: Localization */
     var tnode = document.createTextNode('First');
     var elem = document.createElement('a');
     elem.setAttribute('href', firstlink);
@@ -64,7 +60,6 @@ try {
 
 try {
     var prevlink = document.querySelector('link[rel=prev],link[rel=previous]').href;
-    /* TODO: Localization */
     var tnode = document.createTextNode('Prev');
     var elem = document.createElement('a');
     elem.setAttribute('href', prevlink);
@@ -75,7 +70,6 @@ try {
 
 try {
     var nextlink = document.querySelector('link[rel=next]').href;
-    /* TODO: Localization */
     var tnode = document.createTextNode('Next');
     var elem = document.createElement('a');
     elem.setAttribute('href', nextlink);
@@ -86,7 +80,6 @@ try {
 
 try {
     var lastlink = document.querySelector('link[rel=last]').href;
-    /* TODO: Localization */
     var tnode = document.createTextNode('Last');
     var elem = document.createElement('a');
     elem.setAttribute('href', lastlink);
@@ -113,7 +106,6 @@ for (bookmark of bookmarks) {
     bookmarks_combo.appendChild(elem);
 }
 
-// TODO: Alternate versions
 var alternates = document.querySelectorAll('link[rel~=alternate]:not([rel~=stylesheet]');
 if (alternates.length > 0) {
     var alternates_combo = document.createElement('select');
@@ -136,7 +128,6 @@ var stylesheets = document.styleSheets;
 var tstyles = document.querySelectorAll('link[rel~=stylesheet][title]');
 if (tstyles.length > 0) {
     var styles_combo = document.createElement('select');
-    // TODO: Actually change the stylesheet
     styles_combo.setAttribute('onchange', "document.querySelector('link[rel~=stylesheet]:not([rel~=alternate])').href = this.options[this.selectedIndex].value");
     var styles_group = document.createElement('optgroup');
     styles_group.setAttribute('label', 'Available Stylesheets');
@@ -147,7 +138,7 @@ if (tstyles.length > 0) {
     for (var style of tstyles) {
         var tnode = document.createTextNode(style.title);
         var elem  = document.createElement('option');
-        if (style.rel.indexOf('alternate') == -1) {
+        if (!/\balternate\b/.test(style.rel)) {
             elem.setAttribute('selected', 'selected');
         }
         elem.setAttribute('value', style.href);
@@ -155,7 +146,6 @@ if (tstyles.length > 0) {
         styles_combo.appendChild(elem);
     }
 
-// TODO: Other links
 var notsel = '';
 var rels=['stylesheet', 'alternate', 'icon', 'start', 'up', 'first', 'prev', 'previous', 'next', 'last', 'bookmark'];
 for (var rel of rels) {
@@ -178,5 +168,3 @@ for (var otherlink of otherlinks) {
     elem.appendChild(tnode);
     other_combo.appendChild(elem);
 }
-
-// TODO: Low-opacity overlay for web pages
