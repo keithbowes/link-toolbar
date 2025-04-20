@@ -2,7 +2,7 @@ if (window.hasRun) throw "Already run";
 window.hasRun = true;
 
 var linktoolbar = document.createElement('div');
-linktoolbar.setAttribute('style', 'position: fixed; border: thin black solid; right: 0; z-index: 4000');
+linktoolbar.setAttribute('style', 'position: fixed; border: thin black solid; opacity: 0.75; right: 0; z-index: 4000');
 document.body.insertBefore(linktoolbar, document.body.firstChild);
 
 try {
