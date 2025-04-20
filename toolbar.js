@@ -107,6 +107,7 @@ if (bookmarks.length > 0) {
 for (bookmark of bookmarks) {
     var tnode = document.createTextNode(bookmark.title || bookmark.rel);
     var elem  = document.createElement('option');
+    elem.setAttribute('title', bookmark.href);
     elem.setAttribute('value', bookmark.href);
     elem.appendChild(tnode);
     bookmarks_combo.appendChild(elem);
@@ -125,6 +126,7 @@ if (alternates.length > 0) {
 for (var alternate of alternates) {
     var tnode = document.createTextNode(alternate.title || alternate.rel);
     var elem  = document.createElement('option');
+    elem.setAttribute('title', alternate.href);
     elem.setAttribute('value', alternate.href);
     elem.appendChild(tnode);
     alternates_combo.appendChild(elem);
@@ -171,6 +173,7 @@ if (otherlinks.length > 0) {
 for (var otherlink of otherlinks) {
     var tnode = document.createTextNode(otherlink.title || otherlink.rel);
     var elem  = document.createElement('option');
+    elem.setAttribute('title', otherlink.href);
     elem.setAttribute('value', otherlink.href);
     elem.appendChild(tnode);
     other_combo.appendChild(elem);
