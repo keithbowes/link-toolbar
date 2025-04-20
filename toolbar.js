@@ -10,6 +10,8 @@ try {
     var elem = document.createElement('img');
     elem.setAttribute('alt', iconlink.title);
     elem.setAttribute('src', iconlink.href);
+    elem.setAttribute('height', 16);
+    elem.setAttribute('width', 16);
     linktoolbar.appendChild(elem);
 } catch (e) {
 }
@@ -88,6 +90,7 @@ try {
 } catch (e) {
 }
 
+/* Note: Bookmarks were removed from HTML 5 */
 var bookmarks = document.querySelectorAll('link[rel=bookmark]');
 if (bookmarks.length > 0) {
     var bookmarks_combo = document.createElement('select');
@@ -129,14 +132,13 @@ for (var alternate of alternates) {
 }
 
 var tstyles = document.querySelectorAll('link[rel~=stylesheet][title]');
-if (tstyles.length > 0) {
+if (tstyles.length > 1) {
     var styles_combo = document.createElement('select');
     styles_combo.setAttribute('onchange', "document.querySelector('link[rel~=stylesheet]:not([rel~=alternate])').href = this.options[this.selectedIndex].value");
     var styles_group = document.createElement('optgroup');
     styles_group.setAttribute('label', 'Available Stylesheets');
     styles_combo.appendChild(styles_group);
     linktoolbar.appendChild(styles_combo);
-}
 
     for (var style of tstyles) {
         var tnode = document.createTextNode(style.title);
@@ -148,13 +150,17 @@ if (tstyles.length > 0) {
         elem.appendChild(tnode);
         styles_combo.appendChild(elem);
     }
-
-var notsel = '';
-var rels=['stylesheet', 'alternate', 'icon', 'start', 'up', 'first', 'prev', 'previous', 'next', 'last', 'bookmark'];
-for (var rel of rels) {
-    notsel += ':not([rel~=' + rel + '])';
 }
-var otherlinks=document.querySelectorAll('link' + notsel)
+
+var linksel = new Array();;
+/* Any valid rel types not previously handled */
+var rels=['author', 'help'];
+rels = rels.concat(['contents', 'index', 'glossary', 'copyright', 'chapter', 'section', 'subsection', 'appendix']); // HTML 4 only
+rels = rels.concat(['icon', 'license', 'search']); // HTML 5 only; there's also 'dns-prefetch', 'pingback', 'preconnect', 'prefetch', 'preload', and 'prerender', but those aren't interesting to a user but only to a browser or other user agent.
+for (var rel of rels) {
+    linksel.push('link[rel~=' + rel + ']');
+}
+linktoolbar.appendChild(document.createTextNode(linksel.join(', ')));
 if (otherlinks.length > 0) {
     var other_combo = document.createElement('select');
     other_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
