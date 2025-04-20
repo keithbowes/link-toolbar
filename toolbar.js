@@ -91,10 +91,12 @@ try {
 var bookmarks = document.querySelectorAll('link[rel=bookmark]');
 if (bookmarks.length > 0) {
     var bookmarks_combo = document.createElement('select');
-    bookmarks_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value");
-    var bookmarks_group = document.createElement('optgroup');
-    bookmarks_group.setAttribute('label', 'Bookmarks');
-    bookmarks_combo.appendChild(bookmarks_group);
+    bookmarks_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
+    var elem = document.createElement('option');
+    elem.setAttribute('value', '');
+    var tnode = document.createTextNode('Bookmarks');
+    elem.appendChild(tnode);
+    bookmarks_combo.appendChild(elem);
     linktoolbar.appendChild(bookmarks_combo);
 }
 for (bookmark of bookmarks) {
@@ -109,10 +111,12 @@ for (bookmark of bookmarks) {
 var alternates = document.querySelectorAll('link[rel~=alternate]:not([rel~=stylesheet]');
 if (alternates.length > 0) {
     var alternates_combo = document.createElement('select');
-    alternates_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value");
-    var alternates_group = document.createElement('optgroup');
-    alternates_group.setAttribute('label', 'Alternate Versions');
-    alternates_combo.appendChild(alternates_group);
+    alternates_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
+    var elem = document.createElement('option');
+    elem.setAttribute('value', '');
+    var tnode = document.createTextNode('Alternate Versions');
+    elem.appendChild(tnode);
+    alternates_combo.appendChild(elem);
     linktoolbar.appendChild(alternates_combo);
 }
 for (var alternate of alternates) {
@@ -124,7 +128,6 @@ for (var alternate of alternates) {
     alternates_combo.appendChild(elem);
 }
 
-var stylesheets = document.styleSheets;
 var tstyles = document.querySelectorAll('link[rel~=stylesheet][title]');
 if (tstyles.length > 0) {
     var styles_combo = document.createElement('select');
@@ -154,10 +157,12 @@ for (var rel of rels) {
 var otherlinks=document.querySelectorAll('link' + notsel)
 if (otherlinks.length > 0) {
     var other_combo = document.createElement('select');
-    other_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value");
-    var other_group = document.createElement('optgroup');
-    other_group.setAttribute('label', 'Other');
-    other_combo.append(other_group);
+    other_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
+    var elem = document.createElement('option');
+    elem.setAttribute('value', '');
+    var tnode = document.createTextNode('Other');
+    elem.appendChild(tnode);
+    other_combo.append(elem);
     linktoolbar.appendChild(other_combo);
 }
 for (var otherlink of otherlinks) {
