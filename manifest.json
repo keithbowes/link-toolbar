@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Link Toolbar",
+  "version": "0.1",
+
+  "description": "Adds a link toolbar to pages",
+
+  "icons": {
+    "48": "icons/logo.svg"
+  },
+
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
+
+  "action": {
+    "default_icon": {
+      "48": "icons/logo.svg"
+    },
+    "default_title": "Link Toolbar",
+    "default_popup": "popup/toolbar.html"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "linktoolbar@keithbowes.github.io"
+    }
+  },
+
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": ["<all_urls>"],
+      "js": ["toolbar.js"]
+    }
+  ]
+}
