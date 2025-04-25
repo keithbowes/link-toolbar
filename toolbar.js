@@ -1,23 +1,55 @@
 if (window.hasRun) throw "Already run";
 window.hasRun = true;
 
-var opacity = 1.0;
-var position = 'static';
-var zindex = 1;
+
+var toolbar_type;
+if (window.storage) {
+    storage.local.get('lt-type').then((item) => { toolbar_type = item['lt-type'].value; }, (error) => { });
+} else {
+    toolbar_type = 'fixed';
+}
+
+var position = 'fixed';
+var root_element = document.body;
+var zindex = 250;
 for (var elem of document.querySelectorAll('*')) {
     var curStyle = document.defaultView.getComputedStyle(elem, null);
-    if ((curStyle.getPropertyValue('position') == 'fixed') && curStyle.getPropertyValue('top') == '0px' && curStyle.getPropertyValue('z-index') != 'auto') {
-        opacity = 0.75;
-        position = 'fixed';
+    if (toolbar_type == 'static') {
+        position = 'static';
+        if ((curStyle.getPropertyValue('position') == 'fixed') && curStyle.getPropertyValue('top') == '0px') {
+            root_element = elem;
+        }
     }
     if (curStyle.getPropertyValue('z-index') != 'auto' && curStyle.getPropertyValue('z-index') >= zindex) {
-        zindex = curStyle.getPropertyValue('z-index') + 1;
+        zindex = curStyle.getPropertyValue('z-index') + 250;
     }
 }
 
+var toolbar_style = 'position: ' + position + ';border: thin black solid; z-index: ' + zindex;
+if (toolbar_type == 'fixed') {
+    toolbar_style += '; bottom: 0; right: 0';
+    toolbar_style += '; opacity: 0.75';
+    toolbar_style += '; text-wrap: nowrap; overflow: hidden';
+    document.body.style.marginBottom = '2em';
+}
+
 var linktoolbar = document.createElement('div');
-linktoolbar.setAttribute('style', 'position: ' + position + '; border: thin black solid; opacity: ' + opacity + '; right: 0; z-index: ' + zindex);
-document.body.insertBefore(linktoolbar, document.body.firstChild);
+linktoolbar.setAttribute('id', 'link-toolbar');
+linktoolbar.setAttribute('style', toolbar_style);
+root_element.insertBefore(linktoolbar, root_element.firstChild);
+
+if (toolbar_type == 'toolbar') {
+    document.body.insertBefore(linktoolbar, document.body.firstChild);
+    document.body.style.position = 'fixed';
+    document.body.style.overflow = 'auto';
+    document.body.style.top = '1em';
+    var dims = ['bottom', 'left', 'right'];
+    for (var dim of dims) {
+        var curs = document.defaultView.getComputedStyle(document.body, null).getPropertyValue(dim);
+        document.body.style[dim] = (curs == 'auto') ? 0 : curs;
+    }
+    document.documentElement.style.overflow = 'auto';
+}
 
 try {
     var iconlink = document.querySelector('link[rel~=icon]');
@@ -312,4 +344,8 @@ for (var otherlink of otherlinks) {
     elem.setAttribute('value', otherlink.href);
     elem.appendChild(tnode);
     other_combo.appendChild(elem);
+}
+
+if (toolbar_type == 'toolbar') {
+    document.body.top = document.defaultView.getComputedStyle(document.getElementById('link-toolbar'), null).getPropertyValue('height');
 }

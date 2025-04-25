@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="dark light" />
+  </head>
+
+  <body>
+    <h2>Display Preference</h2>
+    <script>
+      function applySetting(form) {
+        storage.local.set("{lt-type:  { value: " + form.elements['lt-type'].value + '}}');
+      }
+    </script>
+    <form onchange="applySetting(this);">
+      <fieldset>
+        <input type="radio" id="lt-static" name="lt-type" value="static" />
+        <label for="lt-static">At the top of a page</label><br />
+        <input type="radio" id="lt-fixed" name="lt-type" value="fixed" />
+        <label for="lt-fixed">As a floating element</label><br />
+        <input type="radio" id="lt-toolbar" name="lt-type" value="toolbar" />
+        <label for="lt-toolbar">As a toolbar above the page</label>
+      </fieldset>
+    </form>
+    <script>
+      storage.local.get("lt-type").then((item) => { document.querySelector('input[value=' + item['lt-type'].value + ']').click(); }, (error) => { });
+    </script>
+  </body>
+</html>
