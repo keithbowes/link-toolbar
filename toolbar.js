@@ -152,6 +152,94 @@ for (bookmark of bookmarks) {
     bookmarks_combo.appendChild(elem);
 }
 
+/* Note: Chapters were removed from HTML 5. */
+var chapters = document.querySelectorAll('link[rel=chapter]');
+if (chapters.length > 0) {
+    var chapters_combo = document.createElement('select');
+    chapters_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
+    var elem = document.createElement('option');
+    elem.setAttribute('value', '');
+    var tnode = document.createTextNode('Chapters');
+    elem.appendChild(tnode);
+    chapters_combo.appendChild(elem);
+    linktoolbar.appendChild(chapters_combo);
+    linktoolbar.appendChild(document.createTextNode(' '));
+}
+for (chapter of chapters) {
+    var tnode = document.createTextNode(chapter.title || chapter.rel);
+    var elem  = document.createElement('option');
+    elem.setAttribute('title', chapter.href);
+    elem.setAttribute('value', chapter.href);
+    elem.appendChild(tnode);
+    chapter_combo.appendChild(elem);
+}
+
+/* Note: Sections were removed from HTML 5. */
+var sections = document.querySelectorAll('link[rel=section]');
+if (sections.length > 0) {
+    var sections_combo = document.createElement('select');
+    sections_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
+    var elem = document.createElement('option');
+    elem.setAttribute('value', '');
+    var tnode = document.createTextNode('Sections');
+    elem.appendChild(tnode);
+    sections_combo.appendChild(elem);
+    linktoolbar.appendChild(sections_combo);
+    linktoolbar.appendChild(document.createTextNode(' '));
+}
+for (section of sections) {
+    var tnode = document.createTextNode(section.title || section.rel);
+    var elem  = document.createElement('option');
+    elem.setAttribute('title', section.href);
+    elem.setAttribute('value', section.href);
+    elem.appendChild(tnode);
+    section_combo.appendChild(elem);
+}
+
+/* Note: Subsections were removed from HTML 5. */
+var subsections = document.querySelectorAll('link[rel=subsection]');
+if (subsections.length > 0) {
+    var subsections_combo = document.createElement('select');
+    subsections_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
+    var elem = document.createElement('option');
+    elem.setAttribute('value', '');
+    var tnode = document.createTextNode('Subsections');
+    elem.appendChild(tnode);
+    subsections_combo.appendChild(elem);
+    linktoolbar.appendChild(subsections_combo);
+    linktoolbar.appendChild(document.createTextNode(' '));
+}
+for (subsection of subsections) {
+    var tnode = document.createTextNode(subsection.title || subsection.rel);
+    var elem  = document.createElement('option');
+    elem.setAttribute('title', subsection.href);
+    elem.setAttribute('value', subsection.href);
+    elem.appendChild(tnode);
+    subsection_combo.appendChild(elem);
+}
+
+/* Note: Appendices were removed from HTML 5. */
+var appendices = document.querySelectorAll('link[rel=appedix]');
+if (appendices.length > 0) {
+    var appendices_combo = document.createElement('select');
+    appendices_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
+    var elem = document.createElement('option');
+    elem.setAttribute('value', '');
+    var tnode = document.createTextNode('Appendices');
+    elem.appendChild(tnode);
+    appendices_combo.appendChild(elem);
+    linktoolbar.appendChild(appendices_combo);
+    linktoolbar.appendChild(document.createTextNode(' '));
+}
+for (appendix of appendices) {
+    var tnode = document.createTextNode(appendix.title || appendix.rel);
+    var elem  = document.createElement('option');
+    elem.setAttribute('title', appendix.href);
+    elem.setAttribute('value', appendix.href);
+    elem.appendChild(tnode);
+    appendices_combo.appendChild(elem);
+}
+
 var alternates = document.querySelectorAll('link[rel~=alternate]:not([rel~=stylesheet]');
 if (alternates.length > 0) {
     var alternates_combo = document.createElement('select');
@@ -201,7 +289,7 @@ if (tstyles.length > 1) {
 var linksel = new Array();;
 /* Any valid rel types not previously handled */
 var rels=['help'];
-rels = rels.concat(['contents', 'index', 'glossary', 'copyright', 'chapter', 'section', 'subsection', 'appendix']); // Removed in HTML 5
+rels = rels.concat(['contents', 'index', 'glossary', 'copyright']); // Removed in HTML 5
 rels = rels.concat(['license', 'search']); // Added in HTML 5; there's also 'dns-prefetch', 'icon', 'pingback', 'preconnect', 'prefetch', 'preload', and 'prerender', but those aren't interesting to a user but only to a browser or other user agent.
 for (var rel of rels) {
     linksel.push('link[rel~=' + rel + ']');
