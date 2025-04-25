@@ -7,7 +7,7 @@ Not currently available as an installer, but it can be installed by cloning the 
 
 ### Firefox
 
-Go to <about:debugging>, click on "This Firefox", and then use the "Lead temporary add-on" button to locate the manifest.json.
+Go to <about:debugging>, click on "This Firefox", and then use the "Load temporary add-on" button to locate the manifest.json.
 
 ### Chromium
 

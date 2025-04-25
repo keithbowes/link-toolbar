@@ -165,7 +165,7 @@ if (alternates.length > 0) {
     linktoolbar.appendChild(document.createTextNode(' '));
 }
 for (var alternate of alternates) {
-    var title = alternate.title || alternet.rel;
+    var title = alternate.title || alternate.rel;
     if (alternate.hreflang)
         title += ' [' + alternate.hreflang + ']';
     var tnode = document.createTextNode(title);
