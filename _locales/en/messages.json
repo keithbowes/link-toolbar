@@ -25,8 +25,26 @@
   "extension_item_chapters": {
     "message": "Chapters"
   },
+  "extension_item_contents": {
+    "message": "Contents"
+  },
+  "extension_item_copyright": {
+    "message": "Copyright"
+  },
   "extension_item_first": {
     "message": "First"
+  },
+  "extension_item_glossary": {
+    "message": "Glossary"
+  },
+  "extension_item_help": {
+    "message": "Help"
+  },
+  "extension_item_home": {
+    "message": "Home"
+  },
+  "extension_item_index": {
+    "message": "Index"
   },
   "extension_item_last": {
     "message": "Last"
@@ -39,6 +57,9 @@
   },
   "extension_item_prev": {
     "message": "Prev"
+  },
+  "extension_item_search": {
+    "message": "Search"
   },
   "extension_item_sections": {
     "message": "Sections"

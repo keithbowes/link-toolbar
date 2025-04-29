@@ -149,6 +149,28 @@ try {
 } catch (e) {
 }
 
+var tstyles = document.querySelectorAll('link[rel~=stylesheet][title]');
+if (tstyles.length > 1) {
+    var styles_combo = document.createElement('select');
+    styles_combo.setAttribute('onchange', "document.querySelector('link[rel~=stylesheet]:not([rel~=alternate])').href = this.options[this.selectedIndex].value");
+    var styles_group = document.createElement('optgroup');
+    styles_group.setAttribute('label', chrome.i18n.getMessage('extension_item_available_stylesheets'));
+    styles_combo.appendChild(styles_group);
+    linktoolbar.appendChild(styles_combo);
+    linktoolbar.appendChild(document.createTextNode(' '));
+
+    for (var style of tstyles) {
+        var tnode = document.createTextNode(style.title);
+        var elem  = document.createElement('option');
+        if (!/\balternate\b/.test(style.rel)) {
+            elem.setAttribute('selected', 'selected');
+        }
+        elem.setAttribute('value', style.href);
+        elem.appendChild(tnode);
+        styles_combo.appendChild(elem);
+    }
+}
+
 try {
     var authorlink = document.querySelector('link[rel=author]').href;
     var authortitle = document.querySelector('link[rel=author]').title;
@@ -163,6 +185,84 @@ try {
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
     linktoolbar.appendChild(document.createTextNode(' '));
+}
+
+try {
+    var homelink = document.querySelector('link[rel=home]').href;
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_home'));
+    var elem = document.createElement('a');
+    elem.setAttribute('href', homelink);
+    elem.appendChild(tnode);
+    linktoolbar.appendChild(elem);
+    linktoolbar.appendChild(document.createTextNode(' '));
+} catch (e) {
+}
+
+try {
+    var helplink = document.querySelector('link[rel=help]').href;
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_help'));
+    var elem = document.createElement('a');
+    elem.setAttribute('href', helplink);
+    elem.appendChild(tnode);
+    linktoolbar.appendChild(elem);
+    linktoolbar.appendChild(document.createTextNode(' '));
+} catch (e) {
+}
+
+try {
+    var contentslink = document.querySelector('link[rel=contents]').href;
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_contents'));
+    var elem = document.createElement('a');
+    elem.setAttribute('href', contentslink);
+    elem.appendChild(tnode);
+    linktoolbar.appendChild(elem);
+    linktoolbar.appendChild(document.createTextNode(' '));
+} catch (e) {
+}
+
+try {
+    var indexlink = document.querySelector('link[rel=index]').href;
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_index'));
+    var elem = document.createElement('a');
+    elem.setAttribute('href', indexlink);
+    elem.appendChild(tnode);
+    linktoolbar.appendChild(elem);
+    linktoolbar.appendChild(document.createTextNode(' '));
+} catch (e) {
+}
+
+try {
+    var glossarylink = document.querySelector('link[rel=glossary]').href;
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_glossary'));
+    var elem = document.createElement('a');
+    elem.setAttribute('href', glossarylink);
+    elem.appendChild(tnode);
+    linktoolbar.appendChild(elem);
+    linktoolbar.appendChild(document.createTextNode(' '));
+} catch (e) {
+}
+
+/* rel="copyright" became rel="license" in HTML 5. */
+try {
+    var copyrightlink = document.querySelector('link[rel=copyright], link[rel=license]').href;
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_copyright'));
+    var elem = document.createElement('a');
+    elem.setAttribute('href', copyrightlink);
+    elem.appendChild(tnode);
+    linktoolbar.appendChild(elem);
+    linktoolbar.appendChild(document.createTextNode(' '));
+} catch (e) {
+}
+
+try {
+    var searchlink = document.querySelector('link[rel=search]').href;
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_search'));
+    var elem = document.createElement('a');
+    elem.setAttribute('href', searchlink);
+    elem.appendChild(tnode);
+    linktoolbar.appendChild(elem);
+    linktoolbar.appendChild(document.createTextNode(' '));
+} catch (e) {
 }
 
 /* Note: rel="bookmark" for <link> was removed from HTML 5 but it still can be
@@ -300,37 +400,13 @@ for (var alternate of alternates) {
     alternates_combo.appendChild(elem);
 }
 
-var tstyles = document.querySelectorAll('link[rel~=stylesheet][title]');
-if (tstyles.length > 1) {
-    var styles_combo = document.createElement('select');
-    styles_combo.setAttribute('onchange', "document.querySelector('link[rel~=stylesheet]:not([rel~=alternate])').href = this.options[this.selectedIndex].value");
-    var styles_group = document.createElement('optgroup');
-    styles_group.setAttribute('label', chrome.i18n.getMessage('extension_item_available_stylesheets'));
-    styles_combo.appendChild(styles_group);
-    linktoolbar.appendChild(styles_combo);
-    linktoolbar.appendChild(document.createTextNode(' '));
-
-    for (var style of tstyles) {
-        var tnode = document.createTextNode(style.title);
-        var elem  = document.createElement('option');
-        if (!/\balternate\b/.test(style.rel)) {
-            elem.setAttribute('selected', 'selected');
-        }
-        elem.setAttribute('value', style.href);
-        elem.appendChild(tnode);
-        styles_combo.appendChild(elem);
-    }
+var handled_link_types = ['alternate', 'appendix', 'author', 'bookmark', 'chapter', 'contents', 'copyright', 'first', 'glossary', 'help', 'home', 'icon', 'index', 'last', 'license', 'next', 'prev', 'previous', 'search', 'section', 'start', 'stylesheet', 'subsection', 'top', 'up'];
+var notsel = '';
+for (var handled_link_type of handled_link_types) {
+    notsel += ':not([rel~=' + handled_link_type + '])';
 }
 
-var linksel = new Array();;
-/* Any valid rel types not previously handled */
-var rels=['help'];
-rels = rels.concat(['contents', 'index', 'glossary', 'copyright']); // Removed in HTML 5
-rels = rels.concat(['license', 'search']); // Added in HTML 5; there's also 'dns-prefetch', 'icon', 'pingback', 'preconnect', 'prefetch', 'preload', and 'prerender', but those aren't interesting to a user but only to a browser or other user agent.
-for (var rel of rels) {
-    linksel.push('link[rel~=' + rel + ']');
-}
-otherlinks = document.querySelectorAll(linksel.join(', '));
+otherlinks = document.querySelectorAll('link' + notsel);
 if (otherlinks.length > 0) {
     var other_combo = document.createElement('select');
     other_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
