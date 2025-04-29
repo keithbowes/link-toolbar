@@ -68,13 +68,13 @@ try {
 }
 
 try {
-    var homelink = document.querySelector('link[rel=home]').href;
+    var toplink = document.querySelector('link[rel=top]').href;
 } catch (e) {
-    var homelink = '/';
+    var toplink = '/';
 } finally {
-    var tnode = document.createTextNode('Top');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_top'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', homelink);
+    elem.setAttribute('href', toplink);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
     linktoolbar.appendChild(document.createTextNode(' '));
@@ -85,7 +85,7 @@ try {
 } catch (e) {
     var uplink = '../';
 } finally {
-    var tnode = document.createTextNode('Up');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_up'));
     var elem = document.createElement('a');
     elem.setAttribute('href', uplink);
     elem.appendChild(tnode);
@@ -95,7 +95,7 @@ try {
 
 try {
     var startlink = document.querySelector('link[rel=start]').href;
-    var tnode = document.createTextNode('Start');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_start'));
     var elem = document.createElement('a');
     elem.setAttribute('href', startlink);
     elem.appendChild(tnode);
@@ -106,7 +106,7 @@ try {
 
 try {
     var firstlink = document.querySelector('link[rel=first]').href;
-    var tnode = document.createTextNode('First');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_first'));
     var elem = document.createElement('a');
     elem.setAttribute('href', firstlink);
     elem.appendChild(tnode);
@@ -118,7 +118,7 @@ try {
 /* 'previous' is an alias of 'prev' allowed in HTML 4 and older but only 'prev' is allowed in HTML 5. */
 try {
     var prevlink = document.querySelector('link[rel=prev],link[rel=previous]').href;
-    var tnode = document.createTextNode('Prev');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_prev'));
     var elem = document.createElement('a');
     elem.setAttribute('href', prevlink);
     elem.appendChild(tnode);
@@ -129,7 +129,7 @@ try {
 
 try {
     var nextlink = document.querySelector('link[rel=next]').href;
-    var tnode = document.createTextNode('Next');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_next'));
     var elem = document.createElement('a');
     elem.setAttribute('href', nextlink);
     elem.appendChild(tnode);
@@ -140,7 +140,7 @@ try {
 
 try {
     var lastlink = document.querySelector('link[rel=last]').href;
-    var tnode = document.createTextNode('Last');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_last'));
     var elem = document.createElement('a');
     elem.setAttribute('href', lastlink);
     elem.appendChild(tnode);
@@ -155,9 +155,9 @@ try {
 } catch (e) {
     /* Eh, what Lynx does. It might not be the best thing to do. */
     var authorlink = 'mailto:webmaster@' + location.hostname;
-    var authortitle = '*Author'; // Use an asterisk to indicate that it might not work.
+    var authortitle = '*' + chrome.i18n.getMessage('extension_item_author'); // Use an asterisk to indicate that it might not work.
 } finally {
-    var tnode = document.createTextNode(authortitle || 'Author');
+    var tnode = document.createTextNode(authortitle || chrome.i18n.getMessage('extension_item_author'));
     var elem = document.createElement('a');
     elem.setAttribute('href', authorlink);
     elem.appendChild(tnode);
@@ -173,7 +173,7 @@ if (bookmarks.length > 0) {
     bookmarks_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
     var elem = document.createElement('option');
     elem.setAttribute('value', '');
-    var tnode = document.createTextNode('Bookmarks');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_bookmarks'));
     elem.appendChild(tnode);
     bookmarks_combo.appendChild(elem);
     linktoolbar.appendChild(bookmarks_combo);
@@ -195,7 +195,7 @@ if (chapters.length > 0) {
     chapters_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
     var elem = document.createElement('option');
     elem.setAttribute('value', '');
-    var tnode = document.createTextNode('Chapters');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_chapters'));
     elem.appendChild(tnode);
     chapters_combo.appendChild(elem);
     linktoolbar.appendChild(chapters_combo);
@@ -217,7 +217,7 @@ if (sections.length > 0) {
     sections_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
     var elem = document.createElement('option');
     elem.setAttribute('value', '');
-    var tnode = document.createTextNode('Sections');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_sections'));
     elem.appendChild(tnode);
     sections_combo.appendChild(elem);
     linktoolbar.appendChild(sections_combo);
@@ -239,7 +239,7 @@ if (subsections.length > 0) {
     subsections_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
     var elem = document.createElement('option');
     elem.setAttribute('value', '');
-    var tnode = document.createTextNode('Subsections');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_subsections'));
     elem.appendChild(tnode);
     subsections_combo.appendChild(elem);
     linktoolbar.appendChild(subsections_combo);
@@ -261,7 +261,7 @@ if (appendices.length > 0) {
     appendices_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
     var elem = document.createElement('option');
     elem.setAttribute('value', '');
-    var tnode = document.createTextNode('Appendices');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_appendices'));
     elem.appendChild(tnode);
     appendices_combo.appendChild(elem);
     linktoolbar.appendChild(appendices_combo);
@@ -282,7 +282,7 @@ if (alternates.length > 0) {
     alternates_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
     var elem = document.createElement('option');
     elem.setAttribute('value', '');
-    var tnode = document.createTextNode('Alternate Versions');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_alternate_versions'));
     elem.appendChild(tnode);
     alternates_combo.appendChild(elem);
     linktoolbar.appendChild(alternates_combo);
@@ -305,7 +305,7 @@ if (tstyles.length > 1) {
     var styles_combo = document.createElement('select');
     styles_combo.setAttribute('onchange', "document.querySelector('link[rel~=stylesheet]:not([rel~=alternate])').href = this.options[this.selectedIndex].value");
     var styles_group = document.createElement('optgroup');
-    styles_group.setAttribute('label', 'Available Stylesheets');
+    styles_group.setAttribute('label', chrome.i18n.getMessage('extension_item_available_stylesheets'));
     styles_combo.appendChild(styles_group);
     linktoolbar.appendChild(styles_combo);
     linktoolbar.appendChild(document.createTextNode(' '));
@@ -336,7 +336,7 @@ if (otherlinks.length > 0) {
     other_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
     var elem = document.createElement('option');
     elem.setAttribute('value', '');
-    var tnode = document.createTextNode('Other');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_other'));
     elem.appendChild(tnode);
     other_combo.append(elem);
     linktoolbar.appendChild(other_combo);

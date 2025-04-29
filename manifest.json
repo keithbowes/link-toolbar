@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "Link Toolbar",
+  "default_locale": "en",
+  "name": "__MSG_extension_name__",
   "version": "0.1",
 
-  "description": "Adds a link toolbar to pages",
+  "description": "__MSG_extension_description__",
 
   "icons": {
     "48": "icons/logo.svg"

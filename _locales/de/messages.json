@@ -1,0 +1,70 @@
+{
+  "extension_name": {
+    "message": "Link-Werkzeugleiste",
+    "description": "Name der Erweiterung"
+  },
+  "extension_description": {
+    "message": "Fügt eine Link-Werkzeugleiste an Web-Seiten hinzu.",
+    "description": "Beschreibung der Erweiterung"
+  },
+  "extension_item_alternate_versions": {
+    "message": "Andere Versionen"
+  },
+  "extension_item_appendices": {
+    "message": "Anhänge"
+  },
+  "extension_item_author": {
+    "message": "Autor"
+  },
+  "extension_item_available_stylesheets": {
+    "message": "Verfügbare Styles"
+  },
+  "extension_item_bookmarks": {
+    "message": "Lesezeichen"
+  },
+  "extension_item_chapters": {
+    "message": "Kapitel"
+  },
+  "extension_item_first": {
+    "message": "Erster"
+  },
+  "extension_item_last": {
+    "message": "Letzter"
+  },
+  "extension_item_next": {
+    "message": "Nächster"
+  },
+  "extension_item_other": {
+    "message": "Mehr"
+  },
+  "extension_item_prev": {
+    "message": "Vorheriger"
+  },
+  "extension_item_sections": {
+    "message": "Abschnitte"
+  },
+  "extension_item_start": {
+    "message": "Anfang"
+  },
+  "extension_item_subsections": {
+    "message": "Unterabschnitte"
+  },
+  "extension_item_top": {
+    "message": "Spitze"
+  },
+  "extension_item_up": {
+    "message": "Nach oben"
+  },
+  "extension_option_fixed": {
+    "message": "Wie ein schwebendes Element",
+    "description": "Option"
+  },
+  "extension_option_static": {
+    "message": "Bei der Spitze der Seite",
+    "description": "Option"
+  },
+  "extension_option_toolbar": {
+    "message": "Wie eine Werkzeugliste über der Seite",
+    "description": "Option"
+  }
+}

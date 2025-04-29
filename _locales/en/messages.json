@@ -1,0 +1,70 @@
+{
+  "extension_name": {
+    "message": "Link Toolbar",
+    "description": "Name of the extension"
+  },
+  "extension_description": {
+    "message": "Adds a link toolbar to pages.",
+    "description": "Description of the extension"
+  },
+  "extension_item_alternate_versions": {
+    "message": "Alternate Versions"
+  },
+  "extension_item_appendices": {
+    "message": "Appendices"
+  },
+  "extension_item_author": {
+    "message": "Author"
+  },
+  "extension_item_available_stylesheets": {
+    "message": "Available Stylesheets"
+  },
+  "extension_item_bookmarks": {
+    "message": "Bookmarks"
+  },
+  "extension_item_chapters": {
+    "message": "Chapters"
+  },
+  "extension_item_first": {
+    "message": "First"
+  },
+  "extension_item_last": {
+    "message": "Last"
+  },
+  "extension_item_next": {
+    "message": "Next"
+  },
+  "extension_item_other": {
+    "message": "Other"
+  },
+  "extension_item_prev": {
+    "message": "Prev"
+  },
+  "extension_item_sections": {
+    "message": "Sections"
+  },
+  "extension_item_start": {
+    "message": "Start"
+  },
+  "extension_item_subsections": {
+    "message": "Subsections"
+  },
+  "extension_item_top": {
+    "message": "Top"
+  },
+  "extension_item_up": {
+    "message": "Up"
+  },
+  "extension_option_fixed": {
+    "message": "As a floating element",
+    "description": "Option"
+  },
+  "extension_option_static": {
+    "message": "At the top of a page",
+    "description": "Option"
+  },
+  "extension_option_toolbar": {
+    "message": "As a toolbar above the page",
+    "description": "Option"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "extension_name": {
+    "message": "Ligilo-Ilobreto",
+    "description": "Nomo de la etendaĵo"
+  },
+  "extension_description": {
+    "message": "Aldonas ligilo -ilobreton al paĝoj.",
+    "description": "Description of the extension"
+  },
+  "extension_item_alternate_versions": {
+    "message": "Aliaj versioj"
+  },
+  "extension_item_appendices": {
+    "message": "Apendicoj"
+  },
+  "extension_item_author": {
+    "message": "Aŭtoro"
+  },
+  "extension_item_available_stylesheets": {
+    "message": "Disponeblaj stilfoloj"
+  },
+  "extension_item_bookmarks": {
+    "message": "Legosignoj"
+  },
+  "extension_item_chapters": {
+    "message": "Ĉapitroj"
+  },
+  "extension_item_first": {
+    "message": "Unua"
+  },
+  "extension_item_last": {
+    "message": "Lasta"
+  },
+  "extension_item_next": {
+    "message": "Sekva"
+  },
+  "extension_item_other": {
+    "message": "Aliaj"
+  },
+  "extension_item_prev": {
+    "message": "Antaŭa"
+  },
+  "extension_item_sections": {
+    "message": "Sekcioj"
+  },
+  "extension_item_start": {
+    "message": "Komenco"
+  },
+  "extension_item_subsections": {
+    "message": "Subsekcioj"
+  },
+  "extension_item_top": {
+    "message": "Supro"
+  },
+  "extension_item_up": {
+    "message": "Supren"
+  },
+  "extension_option_fixed": {
+    "message": "Kiel ŝvebanta elemento",
+    "description": "Opcio"
+  },
+  "extension_option_static": {
+    "message": "Supre da la paĝo",
+    "description": "Opcio"
+  },
+  "extension_option_toolbar": {
+    "message": "Kiel ilobreto super la paĝo",
+    "description": "Opcio"
+  }
+}
