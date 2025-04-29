@@ -400,7 +400,18 @@ for (appendix of appendices) {
     appendices_combo.appendChild(elem);
 }
 
-var handled_link_types = ['alternate', 'appendix', 'author', 'bookmark', 'chapter', 'contents', 'copyright', 'first', 'glossary', 'help', 'home', 'icon', 'index', 'last', 'license', 'next', 'prev', 'previous', 'search', 'section', 'start', 'stylesheet', 'subsection', 'top', 'up'];
+try {
+    var canonicallink = document.querySelector('link[rel=canonical]').href;
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_canonical'));
+    var elem = document.createElement('a');
+    elem.setAttribute('href', canonicallink);
+    elem.appendChild(tnode);
+    linktoolbar.appendChild(elem);
+    linktoolbar.appendChild(document.createTextNode(' '));
+} catch (e) {
+}
+
+var handled_link_types = ['alternate', 'appendix', 'author', 'bookmark', 'canonical', 'chapter', 'contents', 'copyright', 'first', 'glossary', 'help', 'home', 'icon', 'index', 'last', 'license', 'next', 'prev', 'previous', 'search', 'section', 'start', 'stylesheet', 'subsection', 'top', 'up'];
 var notsel = '';
 for (var handled_link_type of handled_link_types) {
     notsel += ':not([rel~=' + handled_link_type + '])';

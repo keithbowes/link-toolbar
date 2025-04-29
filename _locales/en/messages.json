@@ -22,6 +22,9 @@
   "extension_item_bookmarks": {
     "message": "Bookmarks"
   },
+  "extension_item_canonical": {
+    "message": "Canonical URL"
+  },
   "extension_item_chapters": {
     "message": "Chapters"
   },

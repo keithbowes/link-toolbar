@@ -22,6 +22,9 @@
   "extension_item_bookmarks": {
     "message": "Legosignoj"
   },
+  "extension_item_canonical": {
+    "message": "Kanona URL"
+  },
   "extension_item_chapters": {
     "message": "Ĉapitroj"
   },
@@ -81,7 +84,7 @@
     "description": "Opcio"
   },
   "extension_option_static": {
-    "message": "Supre da la paĝo",
+    "message": "Supre de la paĝo",
     "description": "Opcio"
   },
   "extension_option_toolbar": {
