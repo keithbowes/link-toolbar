@@ -13,7 +13,7 @@ try {
 
 var position = 'fixed';
 var root_element = document.body;
-var zindex = 250;
+var zindex = 1;
 for (var elem of document.querySelectorAll('*')) {
     var curStyle = document.defaultView.getComputedStyle(elem, null);
     if (toolbar_type == 'static') {
@@ -24,11 +24,11 @@ for (var elem of document.querySelectorAll('*')) {
     }
     if (toolbar_type == 'toolbar') {
         if (curStyle.getPropertyValue('top') == '0px') {
-            elem.style.top = '2em';
+            elem.style.top = '1em';
         }
     }
     if (curStyle.getPropertyValue('z-index') != 'auto' && curStyle.getPropertyValue('z-index') >= zindex) {
-        zindex = curStyle.getPropertyValue('z-index') + 250;
+        zindex = curStyle.getPropertyValue('z-index') + 1;
     }
 }
 
@@ -52,7 +52,7 @@ if (toolbar_type == 'toolbar') {
     document.getElementById('link-toolbar').style.top = '0';
     if (document.defaultView.getComputedStyle(document.body, null).getPropertyValue('position') == 'static')
         document.body.style.position = 'relative';
-    document.body.style.top = '2em';
+    document.body.style.top = '1em';
 }
 
 try {
@@ -265,6 +265,30 @@ try {
 } catch (e) {
 }
 
+var alternates = document.querySelectorAll('link[rel~=alternate]:not([rel~=stylesheet]');
+if (alternates.length > 0) {
+    var alternates_combo = document.createElement('select');
+    alternates_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
+    var elem = document.createElement('option');
+    elem.setAttribute('value', '');
+    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_alternate_versions'));
+    elem.appendChild(tnode);
+    alternates_combo.appendChild(elem);
+    linktoolbar.appendChild(alternates_combo);
+    linktoolbar.appendChild(document.createTextNode(' '));
+}
+for (var alternate of alternates) {
+    var title = alternate.title || alternate.rel;
+    if (alternate.hreflang)
+        title += ' [' + alternate.hreflang + ']';
+    var tnode = document.createTextNode(title);
+    var elem  = document.createElement('option');
+    elem.setAttribute('title', alternate.href);
+    elem.setAttribute('value', alternate.href);
+    elem.appendChild(tnode);
+    alternates_combo.appendChild(elem);
+}
+
 /* Note: rel="bookmark" for <link> was removed from HTML 5 but it still can be
  * used for <a> and <area> to specify a permalink. */
 var bookmarks = document.querySelectorAll('link[rel=bookmark]');
@@ -376,30 +400,6 @@ for (appendix of appendices) {
     appendices_combo.appendChild(elem);
 }
 
-var alternates = document.querySelectorAll('link[rel~=alternate]:not([rel~=stylesheet]');
-if (alternates.length > 0) {
-    var alternates_combo = document.createElement('select');
-    alternates_combo.setAttribute('onchange', "location.href=this.options[this.selectedIndex].value; this.options[0].disabled=true");
-    var elem = document.createElement('option');
-    elem.setAttribute('value', '');
-    var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_alternate_versions'));
-    elem.appendChild(tnode);
-    alternates_combo.appendChild(elem);
-    linktoolbar.appendChild(alternates_combo);
-    linktoolbar.appendChild(document.createTextNode(' '));
-}
-for (var alternate of alternates) {
-    var title = alternate.title || alternate.rel;
-    if (alternate.hreflang)
-        title += ' [' + alternate.hreflang + ']';
-    var tnode = document.createTextNode(title);
-    var elem  = document.createElement('option');
-    elem.setAttribute('title', alternate.href);
-    elem.setAttribute('value', alternate.href);
-    elem.appendChild(tnode);
-    alternates_combo.appendChild(elem);
-}
-
 var handled_link_types = ['alternate', 'appendix', 'author', 'bookmark', 'chapter', 'contents', 'copyright', 'first', 'glossary', 'help', 'home', 'icon', 'index', 'last', 'license', 'next', 'prev', 'previous', 'search', 'section', 'start', 'stylesheet', 'subsection', 'top', 'up'];
 var notsel = '';
 for (var handled_link_type of handled_link_types) {
@@ -427,4 +427,8 @@ for (var otherlink of otherlinks) {
 }
 }
 
+try {
+    chrome.tabs.getCurrent().then((tabinfo) => { chrome.scripting.insertCSS({target: { tabId: tabinfo.id }, files: ['toolbar.css']}, (error) => { } )});
+} catch (e) {
+}
 chrome.storage.local.get().then(addLinkToolbar, (error) => { });

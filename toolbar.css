@@ -1,0 +1,9 @@
+#link-toolbar {
+  background-color: #a0a0a0
+}
+
+#link-toolbar a[href] {
+  color: #ffffff;
+  pointer: default;
+  text-decoration: none;
+}
