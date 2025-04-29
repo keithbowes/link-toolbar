@@ -2,11 +2,13 @@ if (window.hasRun) throw "Already run";
 window.hasRun = true;
 
 
+function addLinkToolbar(storage)
+{
 var toolbar_type;
-if (window.storage) {
-    storage.local.get('lt-type').then((item) => { toolbar_type = item['lt-type'].value; }, (error) => { });
-} else {
-    toolbar_type = 'fixed';
+try {
+    toolbar_type = storage.lt_type.value;
+} catch (e) {
+    toolbar_type = 'toolbar';
 }
 
 var position = 'fixed';
@@ -349,3 +351,6 @@ for (var otherlink of otherlinks) {
 if (toolbar_type == 'toolbar') {
     document.body.top = document.defaultView.getComputedStyle(document.getElementById('link-toolbar'), null).getPropertyValue('height');
 }
+}
+
+chrome.storage.local.get().then(addLinkToolbar, (error) => { });

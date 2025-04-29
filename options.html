@@ -7,12 +7,7 @@
 
   <body>
     <h2>Display Preference</h2>
-    <script>
-      function applySetting(form) {
-        storage.local.set("{lt-type:  { value: " + form.elements['lt-type'].value + '}}');
-      }
-    </script>
-    <form onchange="applySetting(this);">
+    <form id="lt_type">
       <fieldset>
         <input type="radio" id="lt-static" name="lt-type" value="static" />
         <label for="lt-static">At the top of a page</label><br />
@@ -22,8 +17,6 @@
         <label for="lt-toolbar">As a toolbar above the page</label>
       </fieldset>
     </form>
-    <script>
-      storage.local.get("lt-type").then((item) => { document.querySelector('input[value=' + item['lt-type'].value + ']').click(); }, (error) => { });
-    </script>
+    <script src="options.js"></script>
   </body>
 </html>
