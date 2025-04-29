@@ -22,6 +22,11 @@ for (var elem of document.querySelectorAll('*')) {
             root_element = elem;
         }
     }
+    if (toolbar_type == 'toolbar') {
+        if (curStyle.getPropertyValue('top') == '0px') {
+            elem.style.top = '2em';
+        }
+    }
     if (curStyle.getPropertyValue('z-index') != 'auto' && curStyle.getPropertyValue('z-index') >= zindex) {
         zindex = curStyle.getPropertyValue('z-index') + 250;
     }
@@ -34,6 +39,9 @@ if (toolbar_type == 'fixed') {
     toolbar_style += '; text-wrap: nowrap; overflow: hidden';
     document.body.style.marginBottom = '2em';
 }
+else if (toolbar_type == 'toolbar') {
+    toolbar_style += '; left: 0; top: 0';
+}
 
 var linktoolbar = document.createElement('div');
 linktoolbar.setAttribute('id', 'link-toolbar');
@@ -41,16 +49,10 @@ linktoolbar.setAttribute('style', toolbar_style);
 root_element.insertBefore(linktoolbar, root_element.firstChild);
 
 if (toolbar_type == 'toolbar') {
-    document.body.insertBefore(linktoolbar, document.body.firstChild);
-    document.body.style.position = 'fixed';
-    document.body.style.overflow = 'auto';
-    document.body.style.top = '1em';
-    var dims = ['bottom', 'left', 'right'];
-    for (var dim of dims) {
-        var curs = document.defaultView.getComputedStyle(document.body, null).getPropertyValue(dim);
-        document.body.style[dim] = (curs == 'auto') ? 0 : curs;
-    }
-    document.documentElement.style.overflow = 'auto';
+    document.getElementById('link-toolbar').style.top = '0';
+    if (document.defaultView.getComputedStyle(document.body, null).getPropertyValue('position') == 'static')
+        document.body.style.position = 'relative';
+    document.body.style.top = '2em';
 }
 
 try {
@@ -346,10 +348,6 @@ for (var otherlink of otherlinks) {
     elem.setAttribute('value', otherlink.href);
     elem.appendChild(tnode);
     other_combo.appendChild(elem);
-}
-
-if (toolbar_type == 'toolbar') {
-    document.body.top = document.defaultView.getComputedStyle(document.getElementById('link-toolbar'), null).getPropertyValue('height');
 }
 }
 
