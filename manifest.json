@@ -30,6 +30,13 @@
     }
   },
 
+  "web_accessible_resources": [
+    {
+      "resources": ["toolbar.css"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+
   "content_scripts": [
     {
       "all_frames": true,

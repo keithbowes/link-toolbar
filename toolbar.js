@@ -436,10 +436,11 @@ for (var otherlink of otherlinks) {
     elem.appendChild(tnode);
     other_combo.appendChild(elem);
 }
+
+var tbstyle = document.createElement('link');
+tbstyle.rel = 'stylesheet';
+tbstyle.href = chrome.runtime.getURL("toolbar.css");
+document.head.appendChild(tbstyle);
 }
 
-try {
-    chrome.tabs.getCurrent().then((tabinfo) => { chrome.scripting.insertCSS({target: { tabId: tabinfo.id }, files: ['toolbar.css']}, (error) => { } )});
-} catch (e) {
-}
 chrome.storage.local.get().then(addLinkToolbar, (error) => { });
