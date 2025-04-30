@@ -3,8 +3,10 @@
 }
 
 #link-toolbar a[href] {
+  background-color: inherit;
   color: #ffffff;
   cursor: default;
+  font: initial;
   text-decoration: none;
 }
 

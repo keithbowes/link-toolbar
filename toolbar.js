@@ -52,44 +52,54 @@ if (toolbar_type == 'toolbar') {
 }
 
 try {
-    var toplink = document.querySelector('link[rel=top]').href;
+    var toplink = document.querySelector('link[rel=top]');
+    if (!toplink) {
+        throw "No top link";
+    }
 } catch (e) {
-    var toplink = '/';
+    var toplink = document.createElement('link');
 } finally {
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_top'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', toplink);
+    elem.setAttribute('href', toplink.href || '/');
+    elem.setAttribute('title', toplink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 }
 
 try {
-    var uplink = document.querySelector('link[rel=up]').href;
+    var uplink = document.querySelector('link[rel=up]');
+    if (!uplink) {
+        throw "No up link";
+    }
 } catch (e) {
-    var uplink = '../';
+    var uplink = document.createElement('link');
 } finally {
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_up'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', uplink);
+    elem.setAttribute('href', uplink.href || '../');
+    elem.setAttribute('title', uplink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 }
 
 try {
-    var startlink = document.querySelector('link[rel=start]').href;
+    var startlink = document.querySelector('link[rel=start]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_start'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', startlink);
+    elem.setAttribute('href', startlink.href);
+    elem.setAttribute('title', startlink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
 }
 
 try {
-    var firstlink = document.querySelector('link[rel=first]').href;
+    var firstlink = document.querySelector('link[rel=first]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_first'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', firstlink);
+    elem.setAttribute('href', firstlink.href);
+    elem.setAttribute('title', firstlink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
@@ -97,30 +107,33 @@ try {
 
 /* 'previous' is an alias of 'prev' allowed in HTML 4 and older but only 'prev' is allowed in HTML 5. */
 try {
-    var prevlink = document.querySelector('link[rel=prev],link[rel=previous]').href;
+    var prevlink = document.querySelector('link[rel=prev],link[rel=previous]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_prev'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', prevlink);
+    elem.setAttribute('href', prevlink.href);
+    elem.setAttribute('title', prevlink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
 }
 
 try {
-    var nextlink = document.querySelector('link[rel=next]').href;
+    var nextlink = document.querySelector('link[rel=next]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_next'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', nextlink);
+    elem.setAttribute('href', nextlink.href);
+    elem.setAttribute('title', nextlink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
 }
 
 try {
-    var lastlink = document.querySelector('link[rel=last]').href;
+    var lastlink = document.querySelector('link[rel=last]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_last'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', lastlink);
+    elem.setAttribute('href', lastlink.href);
+    elem.setAttribute('title', lastlink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
@@ -147,66 +160,75 @@ if (tstyles.length > 1) {
     }
 }
 
+/* rev="made" was an older, nonstandard attribute still used in some older documents. Newer documents should use the standard rel="author". */
 try {
-    var authorlink = document.querySelector('link[rel=author]').href;
-    var authortitle = document.querySelector('link[rel=author]').title;
+    var authorlink = document.querySelector('link[rel=author],link[rev=made]');
+    var authorlink_address = authorlink.href;
+    var authorlink_title_prefix = '';
 } catch (e) {
+    var authorlink = document.createElement('link');
     /* Eh, what Lynx does. It might not be the best thing to do. */
-    var authorlink = 'mailto:webmaster@' + location.hostname;
-    var authortitle = '*' + chrome.i18n.getMessage('extension_item_author'); // Use an asterisk to indicate that it might not work.
+    var authorlink_address = 'mailto:webmaster@' + location.hostname;
+    var authorlink_title_prefix = '*';
 } finally {
-    var tnode = document.createTextNode(authortitle || chrome.i18n.getMessage('extension_item_author'));
+    var tnode = document.createTextNode(authorlink_title_prefix + chrome.i18n.getMessage('extension_item_author'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', authorlink);
+    elem.setAttribute('href', authorlink_address);
+    elem.setAttribute('title', authorlink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 }
 
 try {
-    var homelink = document.querySelector('link[rel=home]').href;
+    var homelink = document.querySelector('link[rel=home]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_home'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', homelink);
+    elem.setAttribute('href', homelink.href);
+    elem.setAttribute('title', homelink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
 }
 
 try {
-    var helplink = document.querySelector('link[rel=help]').href;
+    var helplink = document.querySelector('link[rel=help]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_help'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', helplink);
+    elem.setAttribute('href', helplink.href);
+    elem.setAttribute('title', helplink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
 }
 
 try {
-    var contentslink = document.querySelector('link[rel=contents]').href;
+    var contentslink = document.querySelector('link[rel=contents]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_contents'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', contentslink);
+    elem.setAttribute('href', contentslink.href);
+    elem.setAttribute('title', contentslink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
 }
 
 try {
-    var indexlink = document.querySelector('link[rel=index]').href;
+    var indexlink = document.querySelector('link[rel=index]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_index'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', indexlink);
+    elem.setAttribute('href', indexlink.href);
+    elem.setAttribute('title', indexlink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
 }
 
 try {
-    var glossarylink = document.querySelector('link[rel=glossary]').href;
+    var glossarylink = document.querySelector('link[rel=glossary]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_glossary'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', glossarylink);
+    elem.setAttribute('href', glossarylink.href);
+    elem.setAttribute('title', glossarylink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
@@ -214,20 +236,22 @@ try {
 
 /* rel="copyright" became rel="license" in HTML 5. */
 try {
-    var copyrightlink = document.querySelector('link[rel=copyright], link[rel=license]').href;
+    var copyrightlink = document.querySelector('link[rel=copyright], link[rel=license]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_copyright'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', copyrightlink);
+    elem.setAttribute('href', copyrightlink.href);
+    elem.setAttribute('title', copyrightlink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
 }
 
 try {
-    var searchlink = document.querySelector('link[rel=search]').href;
+    var searchlink = document.querySelector('link[rel=search]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_search'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', searchlink);
+    elem.setAttribute('href', searchlink.href);
+    elem.setAttribute('title', searchlink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
@@ -246,6 +270,11 @@ if (alternates.length > 0) {
 }
 for (var alternate of alternates) {
     var title = alternate.title || alternate.rel;
+    /* The type attribute should allow the user to know whether the alternate
+     * version is a feed. */
+    if (alternate.type)
+        title += ' (' + alternate.type + ')';
+    /* And the language of the alternate version. */
     if (alternate.hreflang)
         title += ' [' + alternate.hreflang + ']';
     var tnode = document.createTextNode(title);
@@ -363,10 +392,11 @@ for (appendix of appendices) {
 }
 
 try {
-    var canonicallink = document.querySelector('link[rel=canonical]').href;
+    var canonicallink = document.querySelector('link[rel=canonical]');
     var tnode = document.createTextNode(chrome.i18n.getMessage('extension_item_canonical'));
     var elem = document.createElement('a');
-    elem.setAttribute('href', canonicallink);
+    elem.setAttribute('href', canonicallink.href);
+    elem.setAttribute('title', canonicallink.title);
     elem.appendChild(tnode);
     linktoolbar.appendChild(elem);
 } catch (e) {
