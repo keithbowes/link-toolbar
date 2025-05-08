@@ -10,7 +10,7 @@
     "48": "icons/logo.svg"
   },
 
-  "permissions": ["activeTab", "scripting", "storage", "tabs"],
+  "permissions": ["activeTab", "storage"],
 
   "action": {
     "default_icon": {
